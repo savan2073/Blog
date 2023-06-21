@@ -1,0 +1,49 @@
+﻿@page
+@model Blog.Pages.Post.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>BlogPost</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="BlogPost.Title" class="control-label"></label>
+                <input asp-for="BlogPost.Title" class="form-control" />
+                <span asp-validation-for="BlogPost.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlogPost.Description" class="control-label"></label>
+                <input asp-for="BlogPost.Description" class="form-control" />
+                <span asp-validation-for="BlogPost.Description" class="text-danger"></span>
+            </div>
+            <div>
+                <label class="input" style="float: left; clear: left;" asp-for="BlogPost.FilePaths"></label>
+                <input class="post-image" type="file" asp-for="@Model.FormFiles" multiple />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BlogPost.Tags" class="control-label"></label>
+                <select asp-for="BlogPost.Tags" asp-items="@Model.TagList" class="form-control" multiple></select>
+                <span asp-validation-for="BlogPost.Tags" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

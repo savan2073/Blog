@@ -1,0 +1,30 @@
+﻿@page
+@model Blog.Pages.CreatePost.CreatePostModel
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Napisz post</h1>
+    </div>
+</div>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="input" asp-for="BlogPost.Title"></label>
+        <input type="text" class="form-control" id="title" name="title" asp-for="BlogPost.Title"/>
+        <span asp-validation-for="BlogPost.Title" class="text-danger" style="float: left;"></span>
+    </div>
+    <div class="mb-3">
+        <label class="input" asp-for="BlogPost.Description"></label>
+        <input type="text" class="form-control" id="description" name="description" asp-for="BlogPost.Description" />
+        <span asp-validation-for="BlogPost.Description" class="text-danger" style="float: left;"></span>
+    </div>
+    <div class="mb-3">
+        <label class="input" asp-for="BlogPost.FilePaths"></label>
+        <input class="post-image" type="file" asp-for="@Model.FormFiles" multiple />
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-dark" value="BlogPost.Id">Submit</button>
+    </div>
+</form>

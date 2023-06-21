@@ -1,0 +1,92 @@
+﻿@page
+@model Blog.Pages.Post.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BlogPost[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BlogPost[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BlogPost[0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BlogPost[0].PublishedDate)
+            </th>
+            <th>
+                Tags
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BlogPost)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedDate)
+                </td>
+                <td>
+                    @foreach (var tag in item.Tags)
+                    {
+                        <span>@tag.Name</span>
+                    }
+                </td>
+                <td>
+                    <div id="carouselExample-@item.Id" class="carousel slide w-100 text-center" data-bs-ride="carousel" data-bs-interval="false">
+                        <div class="carousel-inner">
+                            @{
+                                Boolean first = true;
+                            }
+                            @foreach (var element in item.FilePaths)
+                            {
+                                <div class="carousel-item @( first ? "active" : "" )">
+                                    <div class="d-flex justify-content-center w-100 h-100 carouselImg">
+                                        <img class="d-block w-40 center-block" src="/@element.FilePath" alt="First slide">
+                                    </div>
+                                </div>
+
+                                first = false;
+                            }
+                        </div>
+                        <button class="carousel-control-prev" data-bs-target="#carouselExample-@item.Id" type="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" data-bs-target="#carouselExample-@item.Id" type="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </td>
+
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
